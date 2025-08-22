@@ -68,7 +68,7 @@ def write_to_data():
 
 
 
-open_db()
-write_to_data()
-close_db()
+#open_db()
+#write_to_data()
+#close_db()
 
