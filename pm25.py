@@ -20,19 +20,20 @@ sqlstr="insert ignore into pm25(site,county,pm25,datacreationdate,itemunit)\
 
 conn,cursor=None,None
 
+
 def open_db():
     global conn,cursor
     
     try:
         conn=pymysql.connect(
-        host="localhost",
-        user="root",
-        password="",
-        port=3307,
-        database="demo"
+            host="mysql-16541887-lennox0925-pm25.j.aivencloud.com",
+            user="avnadmin",
+            password="AVNS_LuyFbfSDlFVuJn7gHUY",
+            port=13848,
+         database="defaultdb"
         )
 
-        print(conn)
+        # print(conn)
         cursor=conn.cursor()
         print("資料庫開啟成功!!")
     except Exception as e:
@@ -67,7 +68,22 @@ def write_to_data():
 
 
 
+def get_data_from_mysql():
+    try:
+        open_db()
+        sqlstr = (
+            "select site,county,pm25,datacreationdate,itemunit from pm25 where datacreationdate=(select max(datacreationdate) from pm25);"
+        )
+        cursor.execute(sqlstr)
+        datas = cursor.fetchall()
+        return datas
+    except Exception as e:
+        print(e)
+    finally:
+        close_db()
+    return None
 
+print(get_data_from_mysql())
 #open_db()
 #write_to_data()
 #close_db()

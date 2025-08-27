@@ -1,6 +1,6 @@
 from flask import Flask,render_template
 from datetime import datetime
-from pm25 import get_open_data
+from pm25 import get_data_from_mysql
 
 books={
 1:{
@@ -20,19 +20,18 @@ books={
 "name":"C# book",
 "price":499,
 "image_url":"https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/001/036/04/0010360466.jpg&v=62d695bak&w=348&h=348"
-},
 }
-
+}
 
 
 app=Flask(__name__)
 
 @app.route("/pm25")
 def get_pm25():
-
-    values=get_open_data()
-    print(values)
-    return render_template("pm25.html")
+    values=get_data_from_mysql()
+    #print(values)
+    columns=["站點名稱","縣市","PM2.5","更新時間","單位"]
+    return render_template("pm25.html",columns=columns,values=values)
 
 
 @app.route("/bmi/height=<h>&weight=<w>")
@@ -64,10 +63,6 @@ def now_time():
 def index():
     time=now_time()
     return render_template("index.html",time=time,name="Lennox")
-
-
-
-
 
 app.run(debug=True)
 

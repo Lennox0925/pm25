@@ -4,9 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<style>
+body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: rgb(214, 255, 236);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      text-align: left;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+</style>
+
 </head>
 <body>
     <h1>PM2.5數據列表</h1>
-    {{content}}
+    <table>
+        <thead>
+            <tr>
+                {% for col in columns %}
+                <th>{{col}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+                    {% for value in values %}
+         <tr>
+                    {% for data in values %}
+                     {% endfor %}
+        </tr>
+             {% endfor %}
+    </tbody>
+
+    </table>
+    
 </body>
 </html>
