@@ -1,6 +1,7 @@
 from flask import Flask,render_template
 from datetime import datetime
-from pm25 import get_data_from_mysql
+from pm25 import get_data_from_mysql,write_data_to_mysql
+import json
 
 books={
 1:{
@@ -26,12 +27,21 @@ books={
 
 app=Flask(__name__)
 
+@app.route("/update-db")
+def update_sql():
+    result = write_data_to_mysql()
+
+    return result
+
+
+
 @app.route("/pm25")
 def get_pm25():
     values=get_data_from_mysql()
     #print(values)
     columns=["站點名稱","縣市","PM2.5","更新時間","單位"]
     return render_template("pm25.html",columns=columns,values=values)
+
 
 
 @app.route("/bmi/height=<h>&weight=<w>")
